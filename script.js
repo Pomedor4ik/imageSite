@@ -28,11 +28,24 @@ const renderImgCards = (imgStore) => {
                     <p class="photo-param">comments</p>
                     <p class="photo-text">${imgCard.comments}</p>
                 </li>
-            </ul>
+            </ul>   
+            <button class="photo-favorite"><img class="heartImg" src="./heart-svgrepo-com.svg" alt=""></button></div></button>
         </div>
         `
     });
+    
+    const favoriteButtons = document.querySelectorAll('.photo-favorite');
+    favoriteButtons.forEach(button => {
+        button.addEventListener('click', addToFavorites);
+    });
 }
+
+const addToFavorites = (event) => {
+    const photoCard = event.target.closest('.photo-card');
+    const favoritesGallery = document.querySelector('.favorites-gallery');
+    favoritesGallery.prepend(photoCard.cloneNode(true));
+}
+
 
 searchBtn.addEventListener('click', () => { 
     const searchText = searchInput.value
@@ -62,4 +75,4 @@ btnLoadMore.addEventListener('click', () => {
         .then((res)=> {
             renderImgCards(res.data.hits)
         })
-})
+})  
